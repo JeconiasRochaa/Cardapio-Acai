@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açaí & Sorvetes - Cardápio Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AçaíDicasa</h1>
+            <p class="subtitulo">Personalize seu açaí ou sorvete do seu jeito!</p>
+        </header>
+        <!-- Adicione esta seção logo após o header -->
+<div class="secao" id="carrinho-section" style="display: none;">
+    <h2><i class="fas fa-shopping-cart"></i> Seus Pedidos</h2>
+    <div id="carrinho-itens">
+        <!-- Itens do carrinho serão adicionados aqui via JavaScript -->
+    </div>
+    <div id="carrinho-total">
+        Total do Carrinho: R$ <span>0,00</span>
+    </div>
+</div>
+
+<!-- Modifique o botão finalizar para: -->
+<button id="adicionar-carrinho">
+    <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+</button>
+
+<button id="finalizar-pedido" style="display: none; margin-top: 10px;">
+    <i class="fas fa-paper-plane"></i> Finalizar Todos os Pedidos
+</button>
+
+        <!-- Tipo de Produto -->
+        <div class="secao">
+            <h2>Tipo de Produto</h2>
+            <div class="opcoes">
+                <label>
+                    <input type="radio" name="tipo" value="Açaí" checked>
+                    <span>Açaí</span>
+                </label>
+                <label>
+                    <input type="radio" name="tipo" value="Sorvete">
+                    <span>Sorvete</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Tamanhos para Açaí -->
+        <div class="secao" id="tamanho-acai">
+            <h2>Tamanho do Açaí</h2>
+            <div class="opcoes-grid">
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="300ml" data-acomp="3" data-valor="12">
+                    <div class="card-content">
+                        <span>300ml</span>
+                        <small>3 acompanhamentos</small>
+                        <strong>R$ 10,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="400ml" data-acomp="4" data-valor="16">
+                    <div class="card-content">
+                        <span>400ml</span>
+                        <small>4 acompanhamentos</small>
+                        <strong>R$ 12,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="500ml" data-acomp="5" data-valor="20">
+                    <div class="card-content">
+                        <span>500ml</span>
+                        <small>5 acompanhamentos</small>
+                        <strong>R$ 15,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="600ml" data-acomp="6" data-valor="24">
+                    <div class="card-content">
+                        <span>600ml</span>
+                        <small>6 acompanhamentos</small>
+                        <strong>R$ 18,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="Barca P" data-acomp="8" data-valor="30">
+                    <div class="card-content">
+                        <span>Barca P</span>
+                        <small>8 acompanhamentos</small>
+                        <strong>R$ 28,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-acai" value="Barca M" data-acomp="9" data-valor="38">
+                    <div class="card-content">
+                        <span>Barca M</span>
+                        <small>9 acompanhamentos</small>
+                        <strong>R$ 35,00</strong>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Tamanhos para Sorvete -->
+        <div class="secao" id="tamanho-sorvete" style="display:none;">
+            <h2>Tamanho do Sorvete</h2>
+            <div class="opcoes-grid">
+                <label class="card-option">
+                    <input type="radio" name="tamanho-sorvete" value="Copinho P" data-valor="8">
+                    <div class="card-content">
+                        <span>Tigela P</span>
+                        <strong>R$ 5,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-sorvete" value="Copinho M" data-valor="12">
+                    <div class="card-content">
+                        <span>Tigela M</span>
+                        <strong>R$ 8,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-sorvete" value="Copinho G" data-valor="16">
+                    <div class="card-content">
+                        <span>Tigela G</span>
+                        <strong>R$ 10,00</strong>
+                    </div>
+                </label>
+                <label class="card-option">
+                    <input type="radio" name="tamanho-sorvete" value="Casquinha P" data-valor="6">
+                    <div class="card-content">
+                        <span>Casquinha</span>
+                        <strong>R$ 6,00</strong>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Acompanhamentos (só para açaí) -->
+        <div class="secao" id="acompanhamentos-section">
+            <h2>Acompanhamentos <span id="limite-acomp">(Escolha até <span>0</span>)</span></h2>
+            <div class="categorias">
+                <!-- Frutas -->
+                <div class="categoria">
+                    <h3>Frutas</h3>
+                    <div class="opcoes-grid">
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Morango">
+                            <span>Morango</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Banana">
+                            <span>Banana</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Maçã">
+                            <span>Maçã</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Uva">
+                            <span>Uva</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Abacaxi">
+                            <span>Abacaxi</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Kiwi" data-extra="3">
+                            <span>Kiwi</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Manga" data-extra="3">
+                            <span>Manga</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Cereais e Granolas -->
+                <div class="categoria">
+                    <h3>Cereais e Granolas</h3>
+                    <div class="opcoes-grid">
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Granola">
+                            <span>Granola</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Sucrilhos">
+                            <span>Sucrilhos</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Cereais coloridos">
+                            <span>Cereais coloridos</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Farinha Lacta">
+                            <span>Farinha Lacta</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Ovomaltine">
+                            <span>Ovomaltine</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Castanhas e Amendoins -->
+                <div class="categoria">
+                    <h3>Castanhas e Amendoins</h3>
+                    <div class="opcoes-grid">
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Paçoca">
+                            <span>Paçoca</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Amendoim triturado">
+                            <span>Amendoim triturado</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Amendoim inteiro">
+                            <span>Amendoim inteiro</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Farinha de amendoim">
+                            <span>Farinha de amendoim</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Castanha">
+                            <span>Castanha</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Chocolates e Doces -->
+                <div class="categoria">
+                    <h3>Chocolates e Doces</h3>
+                    <div class="opcoes-grid">
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Leite em pó">
+                            <span>Leite em pó</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Coco ralado">
+                            <span>Coco ralado</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Raspa de chocolate">
+                            <span>Raspa de chocolate</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Granulado de chocolate">
+                            <span>Granulado de chocolate</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Jujuba">
+                            <span>Jujuba</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Chocoball">
+                            <span>Chocoball</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="acompanhamentos" value="Biscoito">
+                            <span>Biscoito</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Extras Premium -->
+        <div class="secao" id="extras-section">
+            <h2>Extras Premium</h2>
+            <div class="opcoes-grid">
+                <label>
+                    <input type="checkbox" name="extras" value="Gotas de chocolate" data-valor="2">
+                    <span>Gotas de chocolate (+R$2)</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="extras" value="M&M" data-valor="2">
+                    <span>M&M (+R$2)</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="extras" value="Nutela" data-valor="2">
+                    <span>Nutela (+R$2)</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="extras" value="Oreo" data-valor="2">
+                    <span>Oreo (+R$2)</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="extras" value="Bis" data-valor="2">
+                    <span>Bis (+R$2)</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="extras" value="Creme de ninho" data-valor="2">
+                    <span>Creme de ninho (+R$2)</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Caldas -->
+        <div class="secao" id="caldas-section">
+            <h2>Caldas</h2>
+            <div class="opcoes-grid">
+                <label>
+                    <input type="checkbox" name="caldas" value="Morango">
+                    <span>Morango</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Abacaxi">
+                    <span>Abacaxi</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Uva">
+                    <span>Uva</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Leite condensado">
+                    <span>Leite condensado</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Menta">
+                    <span>Menta</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Chocolate">
+                    <span>Chocolate</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Limão">
+                    <span>Limão</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Frutas vermelhas">
+                    <span>Frutas vermelhas</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="caldas" value="Caramelo">
+                    <span>Caramelo</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Modifique a seção de pagamento para: -->
+<div class="secao">
+    <h2><i class="fas fa-money-bill-wave"></i> Forma de Pagamento</h2>
+    <div class="opcoes-grid pagamento">
+        <label class="pagamento-option">
+            <input type="radio" name="pagamento" value="Dinheiro" checked>
+            <div class="pagamento-content">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Dinheiro</span>
+            </div>
+        </label>
+        <label class="pagamento-option">
+            <input type="radio" name="pagamento" value="Cartão">
+            <div class="pagamento-content">
+                <i class="fas fa-credit-card"></i>
+                <span>Cartão de credito (+R$ 1,00)</span>
+            </div>
+        </label>
+        <label class="pagamento-option">
+            <input type="radio" name="pagamento" value="PIX">
+            <div class="pagamento-content">
+                <i class="fas fa-qrcode"></i>
+                <span>PIX</span>
+            </div>
+        </label>
+    </div>
+</div>
+
+        <!-- Endereço de Entrega -->
+        <div class="secao">
+            <h2>Endereço de Entrega</h2>
+            <div class="form-group">
+                <label for="endereco">Rua e Número</label>
+                <input type="text" id="endereco" placeholder="Ex: Rua das Flores, 123" required>
+            </div>
+            <div class="form-group">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" placeholder="Ex: Apt 101, Bloco B">
+            </div>
+            <div class="form-group">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" placeholder="Ex: Centro" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" placeholder="Ex: (11) 98765-4321" required>
+            </div>
+            <div class="form-group">
+                <label for="observacoes">Observações</label>
+                <textarea id="observacoes" placeholder="Alguma observação importante?"></textarea>
+            </div>
+        </div>
+
+        <!-- Resumo do Pedido -->
+        <div class="resumo">
+            <h2>Resumo do Pedido</h2>
+            <div id="pedido-resumo">
+                <p class="empty">Selecione as opções para ver o resumo</p>
+            </div>
+            <p id="total">Total: R$ <span>0,00</span></p>
+        </div>
+
+        <!-- Botão Finalizar -->
+        <button id="finalizar">
+            <i class="fas fa-paper-plane"></i> Finalizar Pedido
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
